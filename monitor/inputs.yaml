@@ -1,0 +1,19 @@
+inputs:
+
+# Monitoring Targets
+
+- id: hacken/cloud/kafka/monitoring_conditions
+  type: sentinel.channels.kafka.config.InboundConfigChannel
+  parameters:
+    bootstrap_servers: {{ env['KAFKA_BOOTSTRAP_SERVERS'] }}
+    topics: 
+    - extractor.sync.detector
+
+# Kafka Transaction Channels | Per Chain
+
+- id: hacken/cloud/kafka/transaction/ethereum
+  type: sentinel.channels.kafka.transactions.InboundTransactionsChannel
+  parameters:
+    bootstrap_servers: {{ env['KAFKA_BOOTSTRAP_SERVERS'] }}
+    topics: 
+    - ethereum.mainnet.tx

@@ -1,0 +1,19 @@
+imports:
+- inputs.yaml
+- outputs.yaml
+- databases.yaml
+
+sentries:
+
+- name: ContractMonitor
+  type: monitor.sentry.ContractMonitor
+  description: Demo Contract Monitor
+  parameters:
+    network: ethereum
+  inputs:
+  - hacken/cloud/kafka/transaction/ethereum
+  - hacken/cloud/kafka/monitoring_conditions
+  outputs:
+  - hacken/cloud/kafka/event
+  databases:
+  - contract_monitor/monitored_address

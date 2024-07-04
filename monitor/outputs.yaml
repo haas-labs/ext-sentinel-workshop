@@ -1,0 +1,8 @@
+outputs:
+
+- id: hacken/cloud/kafka/event
+  type: sentinel.channels.kafka.events.OutboundEventsChannel
+  parameters:
+    bootstrap_servers: {{ env['KAFKA_BOOTSTRAP_SERVERS'] }}
+    topics:
+    - extractor.attack-detector.event 
