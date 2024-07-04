@@ -3,9 +3,9 @@ databases:
 - id: contract_monitor/monitored_address/ethereum
   type: sentinel.db.monitoring_conditions.remote.RemoteMonitoringConditionsDB
   parameters:
-    bootstrap_servers: {{ env['KAFKA_BOOTSTRAP_SERVERS'] }}
+    bootstrap_servers: haas-dev-kafka1.hacken.dev:9092
     topics:
-    - {{ env['KAFKA_EXTRACTOR_SYNC_DETECTOR_TOPIC'] }}
+    - extractor.sync.detector
     network: ethereum
     model: monitor.manifest.Schema
     schema: { name: "Contract Monitor", version: "0.1.0" }

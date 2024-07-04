@@ -1,0 +1,6 @@
+project:
+  name: Monitors
+  description: >
+    Monitors is the collection of monitors which used for demo purposes. 
+    How to develop Sentinel sentries, integrate with the Extractor
+

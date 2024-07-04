@@ -1,3 +1,5 @@
+from collections import Counter
+
 from sentinel.db.contract.abi.static import ABI_EVENT_TRANSFER
 from sentinel.db.contract.utils import extract_data_from_event_log
 from sentinel.definitions import BLOCKCHAIN
@@ -14,15 +16,24 @@ class ContractMonitor(TransactionDetector):
 
     def init(self):
         super().init()
+
         self.databases.monitoring_conditions.ingest()
+        if len(self.databases.monitoring_conditions.addresses) == 0:
+            self.logger.warning("No monitored addresses detected")
 
         if getattr(self.inputs, "config", None):
             self.inputs.config.on_config_change = self.on_config_change
+
+        self.log_metrics = Counter()
 
     async def on_config_change(self, record: Configuration):
         self.databases.monitoring_conditions.update(record)
 
     async def on_transaction(self, transaction: Transaction) -> None:
+        self.log_metrics["total transactions"] += 1
+        if self.log_metrics["total transactions"] % 1000 == 0:
+            self.logger.info(self.log_metrics)
+
         for event in transaction.logs:
             if len(event.topics) == 0:
                 continue
@@ -43,6 +54,7 @@ class ContractMonitor(TransactionDetector):
                     ):
                         continue
 
+                    self.log_metrics["transfer to/from monitored contract"] += 1
                     for (
                         config
                     ) in self.databases.monitoring_conditions.get_address_conditions(
@@ -51,6 +63,7 @@ class ContractMonitor(TransactionDetector):
                         value = transfer_event.get("value", 0)
                         threshold = config.get("threshold")
                         if value > threshold:
+                            self.log_metrics["threshold exceed"] += 1
                             await self.send_notification(
                                 config_id=config.id,
                                 monitored_address=address,

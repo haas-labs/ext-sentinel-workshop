@@ -1,3 +1,10 @@
+project:
+  name: Contract Monitor
+  description: >
+    Contract Monitors is a monitor which used for demo purposes:
+    - how to develop Sentinel sentries
+    - integrate with the Extractor
+
 imports:
 - profiles/inputs.yaml
 - profiles/outputs.yaml
@@ -16,4 +23,4 @@ sentries:
   outputs:
   - hacken/cloud/kafka/event
   databases:
-  - contract_monitor/monitored_address
+  - contract_monitor/monitored_address/ethereum

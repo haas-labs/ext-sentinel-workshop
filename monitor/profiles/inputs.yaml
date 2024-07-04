@@ -5,7 +5,7 @@ inputs:
 - id: hacken/cloud/kafka/monitoring_conditions
   type: sentinel.channels.kafka.config.InboundConfigChannel
   parameters:
-    bootstrap_servers: {{ env['KAFKA_BOOTSTRAP_SERVERS'] }}
+    bootstrap_servers: haas-dev-kafka1.hacken.dev:9092
     topics: 
     - extractor.sync.detector
 
@@ -14,6 +14,6 @@ inputs:
 - id: hacken/cloud/kafka/transaction/ethereum
   type: sentinel.channels.kafka.transactions.InboundTransactionsChannel
   parameters:
-    bootstrap_servers: {{ env['KAFKA_BOOTSTRAP_SERVERS'] }}
+    bootstrap_servers: haas-dev-kafka1.hacken.dev:9092
     topics: 
     - ethereum.mainnet.tx
