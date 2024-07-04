@@ -1,7 +1,7 @@
 imports:
-- inputs.yaml
-- outputs.yaml
-- databases.yaml
+- profiles/inputs.yaml
+- profiles/outputs.yaml
+- profiles/databases.yaml
 
 sentries:
 
