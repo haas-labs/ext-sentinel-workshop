@@ -7,13 +7,13 @@ class Schema(BaseSchema):
 
 
 metadata = MetadataModel(
-    name="Contract Monitor",
+    name="Transfer Monitor",
     version="0.1.0",
     status=Status.ACTIVE,
     description=" ".join(
         [
-            "The Contract Detector tracks transfer transactions towards monitored contracts ",
-            "and notify the Extractor if amount exceed",
+            "The Transfer Monitor tracks transfers via monitored contracts ",
+            "and notify the Extractor if amount exceed predefined threshold",
         ]
     ),
     tags=[

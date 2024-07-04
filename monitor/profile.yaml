@@ -1,7 +1,7 @@
 project:
-  name: Contract Monitor
+  name: Transfer Monitor
   description: >
-    Contract Monitors is a monitor which used for demo purposes:
+    Transafer Monitors is a monitor which used for demo purposes:
     - how to develop Sentinel sentries
     - integrate with the Extractor
 
@@ -12,9 +12,9 @@ imports:
 
 sentries:
 
-- name: ContractMonitor
-  type: monitor.sentry.ContractMonitor
-  description: Demo Contract Monitor
+- name: TransferMonitor
+  type: monitor.sentry.TransferMonitor
+  description: Demo Transfer Monitor
   parameters:
     network: ethereum
   inputs:
