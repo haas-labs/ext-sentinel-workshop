@@ -8,4 +8,6 @@ The scope of this repository to provide guidelines how to install, configure, de
 
 - [Installation](docs/Install.md)
 - [Configuration](docs/Config.md)
-- [Integration with Extractor]()
+- [Integration with Extractor](docs/Integration.md)
+- [How-to run a monitor](docs/How-To.md)
+
