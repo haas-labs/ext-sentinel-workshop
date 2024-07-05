@@ -39,11 +39,13 @@ python -m pip install --upgrade pip
 Install Sentinel SDK in your virtual environment
 
 ```sh
-pip install git+ssh://git@github.com/haas-labs/ext-sentinel-py-sdk.git@v0.5.20
+pip install git+ssh://git@github.com/haas-labs/ext-sentinel-py-sdk.git@v0.5.22
 ```
 Check that Sentinel SDK command line interface is available
 
 ```sh
 sentinel version --all
-{"sentinel-sdk": "0.5.20", "httpx": "0.27.0", "python": "3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0]", "platform": "Linux-6.5.0-41-generic-x86_64-with-glibc2.35", "jinja2": "3.1.4", "async_lru": "2.0.4", "aiokafka": "0.10.0", "pydantic": "2.7.4", "web3": "6.19.0", "websockets": "12.0"}
+...
+{"sentinel-sdk": "0.5.22", "httpx": "0.27.0", "python": "3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0]", "platform": "Linux-6.5.0-41-generic-x86_64-with-glibc2.35", "jinja2": "3.1.4", "async_lru": "2.0.4", "aiokafka": "0.10.0", "pydantic": "2.7.4", "web3": "6.19.0", "websockets": "12.0"}
 ```
+
