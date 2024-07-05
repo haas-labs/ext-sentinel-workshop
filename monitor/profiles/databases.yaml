@@ -8,4 +8,4 @@ databases:
     - extractor.sync.detector
     network: ethereum
     model: monitor.manifest.Schema
-    schema: { name: "Transfer Monitor", version: "0.1.1" }
+    schema: { name: "Transfer Monitor", version: "0.1.2" }
