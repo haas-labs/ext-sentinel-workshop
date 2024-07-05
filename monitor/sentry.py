@@ -6,8 +6,7 @@ from sentinel.models.config import Configuration
 from sentinel.models.event import Blockchain, Event
 from sentinel.models.transaction import Transaction
 from sentinel.sentry.v2.transaction import TransactionDetector
-
-from monitor.filters import filter_events
+from sentinel.utils.transaction import filter_events
 
 
 class TransferMonitor(TransactionDetector):
