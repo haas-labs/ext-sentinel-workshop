@@ -86,7 +86,25 @@ sentinel launch --profile monitor/profile.yaml
 
 The output should be
 ```
-
+...
+2024-07-05T13:34:45.757 [INFO] (sentinel.utils.logger) Sentinel SDK version: 0.5.22
+2024-07-05T13:34:45.757 [INFO] (sentinel.utils.logger) Project: {'name': 'Transfer Monitor', 'description': 'Transafer Monitors is a monitor which used for demo purposes: - how to develop Sentinel sentries - integrate with the Extractor\n'}
+2024-07-05T13:34:45.771 [INFO] (sentinel.utils.logger) Sentries: 1 total, 1 active, 1 restarting, 0 scheduled, 0 finished
+...
+2024-07-05T13:34:57.298 [INFO] (sentinel.db.monitoring_conditions.core) Monitored addresses detected: 1
+2024-07-05T13:34:57.298 [INFO] (ethereum://TransferMonitor) Starting sentry process, name: TransferMonitor
+2024-07-05T13:34:57.298 [INFO] (sentinel.utils.logger) transactions -> Subscribing to Kafka topics: ['ethereum.mainnet.tx'], group id: sentinel.TransferMonitor.tx
+2024-07-05T13:34:57.299 [INFO] (sentinel.utils.logger) transactions -> Starting consuming messages fromn Kafka channel: transactions
+2024-07-05T13:34:57.299 [INFO] (sentinel.utils.logger) config -> Subscribing to Kafka topics: ['extractor.sync.detector'], group id: sentinel.TransferMonitor.30e93a
+2024-07-05T13:34:57.300 [INFO] (sentinel.utils.logger) config -> Starting consuming messages fromn Kafka channel: config
+2024-07-05T13:34:57.300 [INFO] (sentinel.channels.kafka.outbound) events -> Subscribing to Kafka topics: ['extractor.attack-detector.event']
+2024-07-05T13:34:57.300 [INFO] (sentinel.channels.kafka.outbound) events -> Starting channel for publishing messages towards Kafka channel: events
 ```
 
+To verify that the Transfer Monitor found monitored address, check the line in the log
+```
+2024-07-05T13:34:57.298 [INFO] (sentinel.db.monitoring_conditions.core) Monitored addresses detected: 1
+```
+
+The number should be 1 or higher
 
