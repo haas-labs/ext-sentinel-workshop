@@ -30,17 +30,30 @@ class TransferMonitor(TransactionDetector):
         self.databases.monitoring_conditions.update(record)
 
     async def on_transaction(self, transaction: Transaction) -> None:
+        # Log Metrics help to monitor detector processing/progress via metrics in log messages
+        # - total transactions
+        # - the number of transfers to/from monitored contract
+        # - the number of cases when threshold exceed
         self.log_metrics["total transactions"] += 1
         if self.log_metrics["total transactions"] % 1000 == 0:
             self.logger.info(self.log_metrics)
 
+        # For each transaction, we are checking if there is ERC20 TRANSFER event and
+        # if yes, we can check a value with threshold
         for event in filter_events(transaction.logs, [ABI_EVENT_TRANSFER]):
+            # Since we can have many monitored addresses, we need to check all of them
             for monitored_address in self.databases.monitoring_conditions.addresses:
                 monitored_address = monitored_address.lower()
+
+                # Skip processing if no monitored address founded in TRANSFER event
                 if monitored_address != event.address:
                     continue
 
+                # Increase metrics for further investigation/throbleshooting
                 self.log_metrics["transfer to/from monitored contract"] += 1
+
+                # The Exatractor can have several different monitored configurations
+                # for the same monitored address, so we need to check all of them
                 for (
                     config
                 ) in self.databases.monitoring_conditions.get_address_conditions(
@@ -50,7 +63,9 @@ class TransferMonitor(TransactionDetector):
                     monitoring_config = config.config
                     value = event.fields.get("value", 0)
                     threshold = monitoring_config.get("threshold")
-                    if value > threshold:
+
+                    # If Transfer value is greater or equal to the threshold, we need to send notification
+                    if value >= threshold:
                         self.log_metrics["threshold exceed"] += 1
                         await self.send_notification(
                             config_id=config_id,
@@ -91,7 +106,7 @@ class TransferMonitor(TransactionDetector):
                 "monitored_contract": monitored_address,
                 "sender_address": sender_address,
                 "recipient_address": recipient_address,
-                "amount": amount,
+                "value": amount,
                 "threshold": threshold,
                 "desc": "Transfer detected with a value exceeding the threshold",
             },
