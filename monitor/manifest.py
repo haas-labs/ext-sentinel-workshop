@@ -8,7 +8,7 @@ class Schema(BaseSchema):
 
 metadata = MetadataModel(
     name="Transfer Monitor",
-    version="0.1.1",
+    version="0.1.2",
     status=Status.ACTIVE,
     description=" ".join(
         [
