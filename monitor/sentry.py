@@ -35,7 +35,7 @@ class TransferMonitor(TransactionDetector):
         # - the number of transfers to/from monitored contract
         # - the number of cases when threshold exceed
         self.log_metrics["total transactions"] += 1
-        if self.log_metrics["total transactions"] % 1000 == 0:
+        if self.log_metrics["total transactions"] % 100 == 0:
             self.logger.info(self.log_metrics)
 
         # For each transaction, we are checking if there is ERC20 TRANSFER event and
