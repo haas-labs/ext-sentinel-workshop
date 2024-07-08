@@ -60,6 +60,7 @@ class TransferMonitor(TransactionDetector):
                     address=monitored_address
                 ):
                     config_id = config.id
+                    user_did = config.name
                     monitoring_config = config.config
                     value = event.fields.get("value", 0)
                     threshold = monitoring_config.get("threshold")
@@ -69,6 +70,8 @@ class TransferMonitor(TransactionDetector):
                         self.log_metrics["threshold exceed"] += 1
                         await self.send_notification(
                             config_id=config_id,
+                            user_did=user_did,
+                            user_severity=monitoring_config.get("severity", -1),
                             monitored_address=monitored_address,
                             sender_address=event.fields.get("from", ""),
                             recipient_address=event.fields.get("to", ""),
@@ -80,20 +83,22 @@ class TransferMonitor(TransactionDetector):
     async def send_notification(
         self,
         config_id: int,
+        user_did: str,
         monitored_address: str,
         threshold: int,
         sender_address: str,
         recipient_address: str,
         amount: int,
         transaction: Transaction,
+        user_severity: float = 0.3,
     ) -> None:
         network = self.parameters.get("network")
         event = Event(
-            did=self.name,
+            did=self.name if user_did is None else user_did,
             sid="ext:sentinel",
             cid=config_id,
             type="transfer_amount_threshold_exceed",
-            severity=0.3,
+            severity=user_severity if user_severity != -1 else 0.3,
             ts=transaction.block.timestamp,
             blockchain=Blockchain(
                 network=network,
